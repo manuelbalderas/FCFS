@@ -9,36 +9,35 @@ Este algoritmo de planificación se caracteriza por contar con un mecanismo coop
 | 4	| 12 | 5 | 20 | 8 | 3 | 
 | | | 4.0 | | 6.2 | 2.2 |
 
-- **Process ID**: Es el identificador del proceso, no es más que un serial que incrementa en uno.
-- **Arrival Time**: Es el tiempo en el que llegó el proceso, pueden llegar procesos en cualquier momento pero deben esperar a que termine el proceso actual para poder avanzar.
-- **Burst Time**: Es el tiempo que tarda el proceso en ser computado.
-- **Completion Time**: Es el tiempo para el cual el proceso terminará y podrá iniciar otro.
-- **Turnaround Time**: Es el tiempo real que tarda el proceso, desde el momento en el que llega hasta que se completa.
-- **Waiting Time**: Es el tiempo que el proceso esperó para comenzar a ser computado.
+- **Process ID**: Este identificador numérico único se incrementa secuencialmente para cada proceso.
+- **Arrival Time**: Indica el momento en el que un proceso llega. Los procesos pueden llegar en cualquier momento, pero deben esperar a que el proceso en curso termine antes de avanzar.
+- **Burst Time**:  Representa la duración necesaria para que el proceso se complete.
+- **Completion Time**: Es el instante en el que el proceso finaliza y está listo para dar paso a otro.
+- **Turnaround Time**: Mide el tiempo real que toma para que un proceso sea procesado desde el momento en que llega hasta que se completa.
+- **Waiting Time**: Indica el tiempo que un proceso pasa en espera antes de comenzar a ser procesado.
 
 ## Estructura del código
 ### 1. Modulo Principal
-`main.py` es el archivo principal, en él se realiza el algoritmo FCFS.
+`main.py` es el archivo principal, en él se realiza la implementación del algoritmo y la simulación.
 ### 2. Clases
 #### 2.1 Process
 - **Propósito**: Tiene como propósito almacenar la infomación de cada proceso.
 - **Atributos**:
-    - `pid`
-    - `arrival_time`
-    - `burst_time`
-    - `completion_time`
-    - `turnaround_time`: Se calcula restando el `completion_time` del proceso anterior menos el `arrival_time` del proceso.
-    - `waiting_time`: Se calcula restando el `turnaround_time` menos el `burst_time`.
-    - `horse`: El caballo que lo representará gráficamente.
+    - `pid`: Identificador único del proceso.
+    - `arrival_time`: Tiempo de llegada del proceso.
+    - `burst_time`: Duración del proceso.
+    - `completion_time`: Tiempo de finalización del proceso.
+    - `turnaround_time`: Calculado restando el `completion_time` del proceso anterior menos el `arrival_time` del proceso.
+    - `waiting_time`: Calculado restando el `burst_time` al `turnaround_time`. Si el resultado es negativo, se ajusta a 0.
+    - `horse`: Representación gráfica del proceso mediante un caballo.
 #### 2.2 Horse
 - **Propósito**: Tiene como propósito facilitar la representación gráfica de cada caballo en la carrera.
 - **Atributos**:
-    - `name`
-    - `position_x`
-    - `position_y`
-    - `velocity`: Se calcula dividiendo la distancia que debe recorrer para llegar a la meta entre el `burst_time`.
-    - `has_arrived`
+    - `position_x`: La coordenada X actual del caballo en la pantalla.
+    - `position_y`: La coordenada y actual del caballo en la pantalla.
+    - `velocity`: La velocidad del caballo, calculada dividiendo la distancia que debe recorrer para llegar a la meta entre el `burst_time`.
+    - `has_arrived`: Una bandera que indica si el caballo ha llegado a la meta.
 - **Metodos**: 
     - `move()`: Avanza al caballo a su velocidad.
-    - `stop()`: Marca que el caballo ha llegado a la meta.
+    - `stop()`: Marca que el caballo ha llegado a la meta, cambiando el estado de `has_arrived` a `True`.
 
