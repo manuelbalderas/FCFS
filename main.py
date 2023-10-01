@@ -2,7 +2,6 @@ import random
 import pygame
 import imageio
 from Process import Process
-from Horse import display_horse_gif
 
 
 def render_label(value, scale_factor):
@@ -88,11 +87,9 @@ while running:
             elif current_time == completion_time:
                 horse.stop()
             elif current_time in range(process.arrival_time, (process.arrival_time + process.waiting_time)):
-                display_horse_gif(screen, 4, horse.position_x, horse.position_y, gif_frames, GIF_ROTATION_ANGLE,
-                                  GIF_SCALE_FACTOR)
+                horse.display_horse_gif(screen, 4, gif_frames, GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
             elif current_time in range((process.arrival_time + process.waiting_time), process.completion_time):
-                display_horse_gif(screen, frame_index, horse.position_x, horse.position_y, gif_frames,
-                                  GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
+                horse.display_horse_gif(screen, frame_index, gif_frames, GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
                 horse.move()
 
         frame_index = (frame_index + 1) % len(gif_frames)
