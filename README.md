@@ -29,15 +29,19 @@ Este algoritmo de planificación se caracteriza por contar con un mecanismo coop
     - `completion_time`: Tiempo de finalización del proceso.
     - `turnaround_time`: Calculado restando el `completion_time` del proceso anterior menos el `arrival_time` del proceso.
     - `waiting_time`: Calculado restando el `burst_time` al `turnaround_time`. Si el resultado es negativo, se ajusta a 0.
+    - `entry_time`: Tiempo en el  que el proceso entra a la ejecución.
     - `horse`: Representación gráfica del proceso mediante un caballo.
 #### 2.2 Horse
 - **Propósito**: Tiene como propósito facilitar la representación gráfica de cada caballo en la carrera.
 - **Atributos**:
-    - `position_x`: La coordenada X actual del caballo en la pantalla.
-    - `position_y`: La coordenada y actual del caballo en la pantalla.
+    - `position`: Una lista que almacena la posición (x, y) del caballo en la pantalla.
     - `velocity`: La velocidad del caballo, calculada dividiendo la distancia que debe recorrer para llegar a la meta entre el `burst_time`.
+    - `frame_index`: Índice del cuadro de animación del caballo. 
+    - `is_moving`: Una bandera que indica si el caballo está en movimiento.
     - `has_arrived`: Una bandera que indica si el caballo ha llegado a la meta.
 - **Metodos**: 
+    - `start_moving()`: Inicia el movimiento del caballo, cambiando el estado de `is_moving` a `True`.
     - `move()`: Avanza al caballo a su velocidad.
     - `stop()`: Marca que el caballo ha llegado a la meta, cambiando el estado de `has_arrived` a `True`.
+    - `display_horse_gif(screen, gif_frames, rotation_angle, scale_factor)`: Muestra la imagen animada del caballo en la pantalla.
 

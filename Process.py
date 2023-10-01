@@ -9,9 +9,9 @@ class Process:
         self.completion_time = completion_time
         self.turnaround_time = self.completion_time - self.arrival_time
         self.waiting_time = max(self.turnaround_time - self.burst_time, 0)
+        self.entry_time = self.arrival_time + self.waiting_time
         self.horse = Horse(
-            15,
-            150 * self.pid + 50,
+            (15, 150 * self.pid + 50),
             distance,
             self.burst_time
         )

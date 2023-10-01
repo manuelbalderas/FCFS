@@ -23,8 +23,8 @@ TEXT_X = 50
 TEXT_Y = 0
 GIF_SCALE_FACTOR = 0.5
 GIF_ROTATION_ANGLE = 90
-gif_frames = [pygame.surfarray.make_surface(frame) for frame in imageio.get_reader("./horse_animation.gif")]
 
+gif_frames = [pygame.surfarray.make_surface(frame) for frame in imageio.get_reader("./horse_animation.gif")]
 for frame in gif_frames:
     frame.set_colorkey(COLORS["WHITE"], pygame.RLEACCEL)
 
@@ -75,24 +75,25 @@ while running:
     pygame.draw.line(screen, COLORS["BLACK"], (215, 0), (215, HEIGHT), 2)
     pygame.draw.line(screen, COLORS["BLACK"], (WIDTH - 12, 0), (WIDTH - 12, HEIGHT), 2)
 
-    label = render_label(current_time, TIME_SCALE_FACTOR)
-    screen.blit(label, (TEXT_X, TEXT_Y))
-
     if current_time <= completion_time:
+
+        label = render_label(current_time, TIME_SCALE_FACTOR)
+        screen.blit(label, (TEXT_X, TEXT_Y))
 
         for process in processes:
             horse = process.horse
-            if current_time < process.arrival_time:
-                continue
-            elif current_time == completion_time:
+
+            if current_time == process.entry_time:
+                horse.start_moving()
+
+            if current_time == process.completion_time:
                 horse.stop()
-            elif current_time in range(process.arrival_time, (process.arrival_time + process.waiting_time)):
-                horse.display_horse_gif(screen, 4, gif_frames, GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
-            elif current_time in range((process.arrival_time + process.waiting_time), process.completion_time):
-                horse.display_horse_gif(screen, frame_index, gif_frames, GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
+
+            if process.entry_time <= current_time < process.completion_time:
                 horse.move()
 
-        frame_index = (frame_index + 1) % len(gif_frames)
+            if process.arrival_time <= current_time < process.completion_time:
+                horse.display_horse_gif(screen, gif_frames, GIF_ROTATION_ANGLE, GIF_SCALE_FACTOR)
 
         pygame.display.flip()
 
